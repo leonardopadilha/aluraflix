@@ -10,3 +10,4 @@ module.exports = router
     .post('/categorias', CategoriaController.salvaCategoria)
     .put('/categorias/:id', CategoriaController.alteraCategoria)
     .delete('/categorias', CategoriaController.apagaCategoria)
+    .delete('/categorias/todos', CategoriaController.apagaTodasCategorias)
