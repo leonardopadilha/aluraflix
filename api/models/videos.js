@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Videos.hasMany(models.Categorias, {
+        foreignKey: 'categoriaId'
+      });
     }
   }
   Videos.init({
@@ -50,6 +52,11 @@ module.exports = (sequelize, DataTypes) => {
           msg : 'dado do tipo url inválido'
         }
       }
+    },
+    categoriaId : {
+      type : DataTypes.INTEGER,
+      defaultValue : 1,
+      allowNull : false
     }
   }, {
     sequelize,

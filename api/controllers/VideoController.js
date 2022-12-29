@@ -86,5 +86,16 @@ module.exports = class VideoController {
             return res.status(422).json(error.message)
         }
     }
+
+    static async deletaTodosVideos(req, res) {
+        try {
+            await database.Videos.destroy({
+                truncate : true
+            })
+            return res.status(200).json({mensagem : "Registros apagados com sucesso"})
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+    }
     
 }

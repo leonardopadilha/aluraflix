@@ -61,6 +61,17 @@ module.exports = class CategoriaController {
         }
     }
 
+    static async apagaTodasCategorias(req, res) {
+        try {
+            await database.Categorias.destroy({
+                truncate : true
+            })
+            return res.status(200).json({mensagem : "Registros apagados com sucesso"})
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+    }
+
     static async alteraCategoria(req, res) {
         const { id } = req.params
         const novaCategoria = req.body

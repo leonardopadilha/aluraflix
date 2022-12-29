@@ -10,4 +10,5 @@ module.exports = router
     .put('/videos/:id', VideoController.alteraVideo)
     .delete('/videos/:id', VideoController.deletaVideo)
     .delete('/videos', VideoController.deletaVideosMassa)
+    .delete('/videos/todos', VideoController.deletaTodosVideos)
 
