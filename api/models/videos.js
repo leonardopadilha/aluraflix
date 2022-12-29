@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model, INTEGER
+  Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Videos extends Model {
@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Videos.hasMany(models.Categorias, {
-        foreignKey: 'categoriaId'
-      });
+      Videos.belongsTo(models.Categorias, {
+        foreignKey : 'categoriaId'
+      })
     }
   }
   Videos.init({
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       validate : {
         notEmpty: true,
         len: {
-          args : [2,30],
+          args : [2,80],
           msg: "limite máximo para descrição - 30 caracteres"
         },
         validaDescricao : function(dado) {
@@ -52,11 +52,6 @@ module.exports = (sequelize, DataTypes) => {
           msg : 'dado do tipo url inválido'
         }
       }
-    },
-    categoriaId : {
-      type : DataTypes.INTEGER,
-      defaultValue : 1,
-      allowNull : false
     }
   }, {
     sequelize,
