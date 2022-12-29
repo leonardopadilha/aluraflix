@@ -35,6 +35,28 @@ module.exports = class CategoriaController {
         }
     }
 
+    static async exibeVideosPorCategoria(req, res) {
+        const { id } = req.params
+            const videosSelecionados = await database.Categorias.findOne({
+                where : {
+                    id : Number(id)
+                },
+                include : {
+                    model : database.Videos,
+                    where : {
+                        categoriaId : Number(id)
+                    },
+                    require : true,
+                    attributes : ['id', 'titulo', 'descricao','url']
+                }
+            })
+
+            videosSelecionados === null ? 
+                res.status(422).json({mensagem : "Id inválido"}) : 
+                res.status(200).json(videosSelecionados)
+
+    }
+
     static async salvaCategoria(req, res) {
         const categoria = req.body
 

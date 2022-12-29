@@ -44,7 +44,7 @@ module.exports = class VideoController {
             return res.status(422).json(error.message)
         }
     }
-
+    
     static async salvaVideo(req, res) {
         const video = req.body
 
