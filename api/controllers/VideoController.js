@@ -25,6 +25,26 @@ module.exports = class VideoController {
         }
     }
 
+    static async pegaVideoPorCategoria(req, res) {
+        const { videoId, categoriaId } = req.params
+        try {
+            const videoEscolhido = await database.Videos.findOne({
+                where : {
+                    id : Number(videoId),
+                    categoriaId : Number(categoriaId)
+                },
+                include : {
+                    model : database.Categorias,
+                    required : true,
+                    attributes : ['titulo']
+                }
+            })
+            return res.status(200).json(videoEscolhido)
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+    }
+
     static async salvaVideo(req, res) {
         const video = req.body
 
