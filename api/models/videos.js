@@ -16,6 +16,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Videos.init({
+    categoriaId: {
+      type : DataTypes.INTEGER,
+      defaultValue: 1,
+      validate : {
+        validaTitulo : function(dado) {
+          if (!Number.isInteger(dado))
+            throw new Error('valor inválido para o título') 
+        }
+      }
+    },
     titulo: {
       type : DataTypes.STRING,
       allowNull: false,
