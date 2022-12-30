@@ -1,10 +1,15 @@
 const database = require('../models')
+const QueryTypes = require('sequelize');
 
 module.exports = class VideoController {
     static async pegaTodosVideos(req, res) {
         try {
             const todosVideos = await database.Videos.findAll()
-            return res.status(200).json(todosVideos)
+            return res.status(200).json({
+                produto : "videos",
+                status : "success",
+                data : todosVideos
+            })
         } catch (error) {
             return res.status(422).json(error.message)
         }
@@ -50,6 +55,9 @@ module.exports = class VideoController {
 
         try {
             const novoVideo = await database.Videos.create(video)
+            novoVideo.set({
+                categoriaId : 1
+            })
             return res.status(201).json(novoVideo)
         } catch(error) {
             return res.status(422).json(error.message)

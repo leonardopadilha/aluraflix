@@ -54,7 +54,6 @@ module.exports = class CategoriaController {
             videosSelecionados === null ? 
                 res.status(422).json({mensagem : "Id inválido"}) : 
                 res.status(200).json(videosSelecionados)
-
     }
 
     static async salvaCategoria(req, res) {
