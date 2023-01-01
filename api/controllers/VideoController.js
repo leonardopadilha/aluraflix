@@ -7,7 +7,7 @@ module.exports = class VideoController {
             const todosVideos = await database.Videos.findAll()
             return res.status(200).json({
                 produto : "videos",
-                status : "success",
+                status : "sucesso",
                 data : todosVideos
             })
         } catch (error) {
@@ -55,11 +55,21 @@ module.exports = class VideoController {
 
         try {
             const novoVideo = await database.Videos.create(video)
-            novoVideo.set({
-                categoriaId : 1
-            })
             return res.status(201).json(novoVideo)
         } catch(error) {
+            return res.status(422).json(error.message)
+        }
+    }
+
+    static async salvarVariosVideos(req, res) {
+        try {
+            const variosVideos = await database.Videos.bulkCreate(req.body)
+            return res.status(201).json({
+                produto : "Videos",
+                status : "sucesso",
+                data : variosVideos
+            })
+        } catch (error) {
             return res.status(422).json(error.message)
         }
     }
