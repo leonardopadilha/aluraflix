@@ -67,6 +67,19 @@ module.exports = class CategoriaController {
         }
     }
 
+    static async salvaVariasCategorias(req, res) {
+        try {
+            const variasCategorias = await database.Categorias.bulkCreate(req.body)
+            return res.status(201).json({
+                produto : "categorias",
+                status : "sucess",
+                data : variasCategorias
+            })
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+    }
+
     static async apagaCategoria(req, res) {
         const { id } = req.params
 

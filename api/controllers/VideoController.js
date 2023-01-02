@@ -1,8 +1,31 @@
 const database = require('../models')
-const QueryTypes = require('sequelize');
+const { QueryTypes } = require('sequelize');
 
 module.exports = class VideoController {
     static async pegaTodosVideos(req, res) {
+        const titulo_pesquisado = req.query
+        const pesquisa = Object.values(titulo_pesquisado);
+
+        try {
+            const videos_query = await database.sequelize.query(
+                "SELECT * FROM `videos` WHERE titulo LIKE :titulo_filme", 
+                {   
+                    model : database.Videos,
+                    //mapToModel: true,
+                    //raw: true,
+                    replacements: { titulo_filme: `%${pesquisa}%` },
+                    type: QueryTypes.SELECT 
+                }
+            );
+            return res.status(200).json(videos_query)
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+
+    }
+
+
+    static async exibeTodosVideos(req, res) {
         try {
             const todosVideos = await database.Videos.findAll()
             return res.status(200).json({
@@ -49,7 +72,7 @@ module.exports = class VideoController {
             return res.status(422).json(error.message)
         }
     }
-    
+
     static async salvaVideo(req, res) {
         const video = req.body
 
@@ -65,7 +88,7 @@ module.exports = class VideoController {
         try {
             const variosVideos = await database.Videos.bulkCreate(req.body)
             return res.status(201).json({
-                produto : "Videos",
+                produto : "videos",
                 status : "sucesso",
                 data : variosVideos
             })

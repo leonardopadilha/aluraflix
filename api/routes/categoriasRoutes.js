@@ -9,6 +9,7 @@ module.exports = router
     .get('/categorias/tipo/:titulo', CategoriaController.pegaCategoriaPorTipo)
     .get('/categorias/:id/videos', CategoriaController.exibeVideosPorCategoria)
     .post('/categorias', CategoriaController.salvaCategoria)
+    .post('/categorias', CategoriaController.salvaVariasCategorias)
     .put('/categorias/:id', CategoriaController.alteraCategoria)
     .delete('/categorias', CategoriaController.apagaCategoria)
     .delete('/categorias/todos', CategoriaController.apagaTodasCategorias)
