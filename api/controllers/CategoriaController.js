@@ -1,6 +1,29 @@
 const database = require('../models');
+const { QueryTypes } = require('sequelize');
 
 module.exports = class CategoriaController {
+    static async pegaCategoriaPorQuery(req, res) {
+        const info_categoria = req.query
+        const categoria = Object.values(info_categoria)
+
+        try {
+            const categoria_pesquisada = await database.sequelize.query(
+                'SELECT * FROM categorias WHERE titulo LIKE :titulo_desejado', 
+                {
+                    model : database.Categorias, 
+                    replacements: { titulo_desejado: `%${categoria}%` },
+                    type : QueryTypes.SELECT
+                }
+            )
+            return res.status(200).json(categoria_pesquisada)
+        } catch (error) {
+            return res.status(422).json(error.message)
+        }
+    }
+
+
+
+
     static async pegaTodasCategorias(req, res) {
         try {
             const todasCategorias = await database.Categorias.findAll()

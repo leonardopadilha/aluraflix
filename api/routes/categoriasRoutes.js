@@ -4,6 +4,7 @@ const CategoriaController = require('../controllers/CategoriaController')
 const router = Router()
 
 module.exports = router
+    .get('/categorias/query', CategoriaController.pegaCategoriaPorQuery)
     .get('/categorias', CategoriaController.pegaTodasCategorias)
     .get('/categorias/:id', CategoriaController.pegaCategoriaPorId)
     .get('/categorias/tipo/:titulo', CategoriaController.pegaCategoriaPorTipo)
