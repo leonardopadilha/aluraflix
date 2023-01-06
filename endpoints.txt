@@ -1,0 +1,27 @@
+Deletar vídeos selecionados
+
+{
+    "id" : [3,4,5]
+}
+
+Salvar Categoria
+{
+    "titulo" : "Suspense",
+    "cor" : "Verde"
+}
+
+Salvar video
+{
+    "titulo" : "Filme de suspense",
+    "descricao" : "Esse é um teste para salvar dados de videos",
+    "url" : "https://www.google.com.br",
+    "categoriaId" : 1
+}
+
+endpoint para pesquisa baseado em query
+http://localhost:3000/videos/query?titulo=sus
+http://localhost:3000/categorias/query?titulo=com
+
+
+http://localhost:3000/videos
+http://localhost:3000/categorias
